@@ -5,16 +5,8 @@ import os,time,tikteck, random
 
 bulb = tikteck.tikteck("00:21:4D:06:0B:70", "Smart Light", "241866259")
 
-#bulb.connect()
-
-
-#bulb.set_state(230,0,255,255)
-
 def set(r, g, b, a):
         bulb.set_state(r, g, b, a)
-
-
-#import bulb
 
 app = Flask(__name__)
 
@@ -25,12 +17,13 @@ def index():
   return render_template('index.html')
 
 
+def connect():
+	bulb.connect()
 
 @app.route('/setColor', methods=['POST'])
-def setColor():
-	#import bulb
 
-	bulb.connect()
+def setColor():
+	connect()
 	color = request.get_json()
 	a = color['a']*255
 	set(color['r'], color['g'], color['b'], a)
