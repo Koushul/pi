@@ -6,7 +6,7 @@ bulb = tikteck.tikteck("00:21:4D:06:0B:70", "Smart Light", "241866259")
 bulb.connect()
 
 
-bulb.set_state(230,0,255,255)
+#bulb.set_state(230,0,255,255)
 
 def set(r, g, b, a):
 	bulb.set_state(r, g, b, a)
@@ -44,4 +44,3 @@ def shiftambient():
 		
 def off():
 	 bulb.set_state(0,0,0,0)
-
