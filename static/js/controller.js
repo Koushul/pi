@@ -1,10 +1,9 @@
 (function ($, tinycolor) {
     
-    var color = { r:0, g:0, b:0, a:0 };
+    var color = { r:255, g:255, b:255, a:1 };
     
-    var updateColor = function () {
-        var $color = $('#color-picker').val();
-        color = tinycolor($color).toRgb();
+    var updateColor = function (newColor) {
+        color = newColor;
     };
     
     var setColor = function () {
@@ -15,8 +14,8 @@
     	    dataType: 'json',
     	    contentType: 'application/json',
             success: function(response) {
-		let rColor = response.color;
-                console.log('Light set to [ R:' + rColor.r + ', G:' + rColor.g + ', B:' + rColor.b + ', A:' + rColor.a + ']');
+		        let c = response.color;
+                console.log('Light set to [ R:' + c.r + ', G:' + c.g + ', B:' + c.b + ', A:' + c.a + ']');
             }
         });
     };
@@ -28,13 +27,18 @@
         $button.on('click', setColor);
         
         $picker.ColorPickerSliders({
-            size: 'sm',
+            color: 'rgb(255, 255, 255)',
+            size: 'default',
             placement: 'right',
+            animation: true,
             swatches: false,
             order: {
-                hsl: 1
+                rgb: 1,
+                opacity: 2
             },
-            onchange: updateColor
+            onchange: function (container, color) {
+                updateColor(color.tiny.toRgb());
+            }
         });
     });
 })(jQuery, tinycolor);
