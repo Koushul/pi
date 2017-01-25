@@ -5,8 +5,8 @@ import os,time,tikteck, random
 
 bulb = tikteck.tikteck("00:21:4D:06:0B:70", "Smart Light", "241866259")
 
-def set(r, g, b, a):
-        bulb.set_state(r, g, b, a)
+def set(c):
+        bulb.set_state(c['r'], c['g'], c['b'], c['a'])
 
 app = Flask(__name__)
 
@@ -25,9 +25,11 @@ def connect():
 def setColor():
 	connect()
 	color = request.get_json()
-	a = color['a']*255
-	set(color['r'], color['g'], color['b'], a)
-	return json.dumps({'status' : 'OK', 'color': color}) 
+	a = int(color['a']*255)
+	nColor = { 'r': color['r'], 'g': color['g'], 'b': color['b'], 'a':a }
+	
+	set(nColor)
+	return json.dumps({'status' : 'OK', 'color': nColor}) 
 
 
 if __name__ == '__main__':
