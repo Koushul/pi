@@ -8,6 +8,9 @@ bulb.connect()
 
 bulb.set_state(230,0,255,255)
 
+def set(r, g, b, a):
+	bulb.set_state(r, g, b, a)
+
 def ambient():
 	bulb.set_state(230,0,255,255)
 
