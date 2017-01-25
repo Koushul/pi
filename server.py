@@ -25,13 +25,15 @@ def index():
   return render_template('index.html')
 
 
+
 @app.route('/setColor', methods=['POST'])
 def setColor():
 	#import bulb
 
 	bulb.connect()
 	color = request.get_json()
-	set(color['r'], color['g'], color['b'], color['a'])
+	a = color['a']*255
+	set(color['r'], color['g'], color['b'], a)
 	return json.dumps({'status' : 'OK', 'color': color}) 
 
 

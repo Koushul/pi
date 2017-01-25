@@ -15,7 +15,8 @@
     	    dataType: 'json',
     	    contentType: 'application/json',
             success: function(response) {
-                console.log('Light set to ' + response.color);
+		let rColor = response.color;
+                console.log('Light set to [ R:' + rColor.r + ', G:' + rColor.g + ', B:' + rColor.b + ', A:' + rColor.a + ']');
             }
         });
     };
