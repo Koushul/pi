@@ -1,6 +1,12 @@
 (function ($, tinycolor) {
     
-    var setColor = function (color) {
+    var color = { r:255, g:255, b:255, a:1 };
+    
+    var updateColor = function (newColor) {
+        color = newColor;
+    };
+    
+    var setColor = function () {
         $.ajax({
             url: '/setColor',
             data: JSON.stringify(color),
@@ -31,7 +37,7 @@
                 opacity: 2
             },
             onchange: function (container, color) {
-                setColor(color.tiny.toRgb());
+                updateColor(color.tiny.toRgb());
             }
         });
     });
