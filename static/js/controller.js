@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, window) {
     
     // var color = { r:255, g:255, b:255, a:1 };
     
@@ -6,7 +6,7 @@
     //     color = newColor;
     // };
     
-    var setColor = function (color) {
+    window.setColor = function (color) {
         $.ajax({
             url: '/setColor',
             data: JSON.stringify(color),
@@ -24,7 +24,7 @@
         var $button = $('#set-color');
         var $picker = $('#color-picker');
         
-        $button.on('click', setColor);
+        $button.on('click', window.setColor);
         
         $picker.ColorPickerSliders({
             color: 'rgb(255, 255, 255)',
@@ -37,8 +37,8 @@
                 opacity: 2
             },
             onchange: function (container, color) {
-                setColor(color.tiny.toRgb());
+                window.setColor(color.tiny.toRgb());
             }
         });
     });
-})(jQuery);
+})(jQuery, window);
