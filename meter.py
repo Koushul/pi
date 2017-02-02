@@ -30,23 +30,23 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 _soundmeter = None
 
 old_volume = 300
-old_brightness = 183
-old_offset = 0
+brightness = 183
+offset = 0
 def enlighten(volume):
-    global old_volume, old_brightness, old_offset
+    global old_volume, brightness, offset
     throttle = 2*((volume / float(max(old_volume, 1))) - 1)
-    old_brightness = int(min(max((throttle * 100 + old_brightness), 0), 255))
+    brightness = int(min(max((throttle * 100 + brightness), 0), 255))
     old_volume = volume
-    old_offset = (old_offset + 0.01) % 100
-    tuple = spectrum(int((throttle * 10) + old_offset)) + (old_brightness,)
-    sock.sendto(tuple[0] + "," + tuple[1] + "," + tuple[2] + "," + str(tuple[3]), ("127.0.0.1",8989))
+    #offset = (offset + 0.01) % 100
+    offset = int((throttle * 10) + offset) % 100
+    tuple = map(str, spectrum(offset).append(brightness))
+    sock.sendto(",".join(tuple), ("127.0.0.1", 8989))
 	
 def spectrum(offset):
-    offset = offset % 100
     red = max(getVal(offset, 0), getVal(offset, 100))
     green = getVal(offset, 33)
     blue = getVal(offset, 67)
-    return (str(red), str(green), str(blue))
+    return [red, green, blue]
 
 def getVal(offset, colPos):
     minO = colPos - 16.5
