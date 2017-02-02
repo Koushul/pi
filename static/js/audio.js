@@ -29,7 +29,7 @@
         console.log("__________ " + label);
         
         for (var index = 0; index < max_index && index < size_buffer; index += 1) {
-            let value = parseInt(Math.min((given_typed_array[index] / 120) * 255, 255));
+            let value = parseInt(Math.max(Math.min((given_typed_array[index] / 100) * 255, 255), 0));
             color[colorValues[index]] = value;
             //console.log(value);
         }

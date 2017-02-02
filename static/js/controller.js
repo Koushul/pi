@@ -7,6 +7,8 @@
     // };
     
     window.setColor = function (color) {
+	console.log(color);
+
         $.ajax({
             url: '/setColor',
             data: JSON.stringify(color),
